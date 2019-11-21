@@ -50,9 +50,9 @@ local isWorkInBackground = imgui.new.bool(false)
 local isFixLiterText = imgui.new.bool(false)
 local workingDirectory = getWorkingDirectory()
 
-local take_aim = false -- Автоприцеливание
+local take_aim = false -- РђРІС‚РѕРїСЂРёС†РµР»РёРІР°РЅРёРµ
 
--- [[ Массивы для исправления литерации в чатах/командах ]] --
+-- [[ РњР°СЃСЃРёРІС‹ РґР»СЏ РёСЃРїСЂР°РІР»РµРЅРёСЏ Р»РёС‚РµСЂР°С†РёРё РІ С‡Р°С‚Р°С…/РєРѕРјР°РЅРґР°С… ]] --
 local literCmd = {
 	{"/r", true, true}, 
 	{"/do", true, true}, 
@@ -66,7 +66,7 @@ local literCmd = {
 	{"/me", false, false},
 	{"/seeMe", false, true},
 }
-local blackWords = {"xd", ":d", "чв", "хд", "ку", "q"}
+local blackWords = {"xd", ":d", "С‡РІ", "С…Рґ", "РєСѓ", "q"}
 
 local imguiHelperWindow = imgui.new.bool()
 local SuspectPlayerID = imgui.new.int(0)
@@ -75,7 +75,7 @@ local scrollToReason = false
 local list_ids = {}
 local listArr = {}
 
-local btn_size        = imgui.ImVec2(110,47) --размер кнопки
+local btn_size        = imgui.ImVec2(110,47) --СЂР°Р·РјРµСЂ РєРЅРѕРїРєРё
 local selectable_size = imgui.ImVec2(147,40)
 local btnlives_size   = imgui.ImVec2(100,40)
 local btnadw_size     = imgui.ImVec2(90,60)
@@ -95,81 +95,81 @@ local targetID = 0
 
 
 local Ukodeks = {
-	{"Нарушение порядка", "УК, 1", "1"},
-	{"Хранение ключей", "УК, 2", "2"},
-	{"Драка", "УК, 3", "2"},
-	{"Ношение оружия в открытом виде", "УК, 4", "2"},
-	{"Клевета", "УК, 5", "2"},
-	{"Продажа оружия", "УК, 6", "2"},
-	{"Подделка", "УК, 7", "2"},
-	{"Неуплата штрафа", "УК, 8", "2"},
-	{"Манифестация", "УК, 9", "2"},
-	{"Порча имущества", "УК, 10", "2"},
-	{"Угон", "УК, 11", "2"},
-	{"Наезд на пешехода", "УК, 12", "3"},
-	{"Выращивание наркотических веществ", "УК, 13", "3"},
-	{"Проникновение", "УК, 14", "3"},
-	{"Помеха", "УК, 15", "2"},
-	{"Взятка", "УК, 16", "2"},
-	{"Ношение оружия без лицензии", "УК, 17", "2"},
-	{"Оскорбление", "УК, 18", "2"},
-	{"Неподчинение", "УК, 19", "2"},
-	{"Продажа гос. имущества", "УК, 20", "3"},
-	{"Продажа наркотиков", "УК, 21", "3"},
-	{"Хранение зап. веществ", "УК, 22", "3"},
-	{"Употребление наркотиков", "УК, 23", "3"},
-	{"Разбой", "УК, 24", "3"},
-	{"Уход", "УК, 25", "3"},
-	{"Кража", "УК, 26", "3"},
-	{"Похищение", "УК, 27", "4"},
-	{"Побег", "УК, 28", "4"},
-	{"Нападение на военнослужащего", "УК, 29", "4"},
-	{"Нападение на полицейского", "УК, 30", "5"},
-	{"Нападение на Агента ФБР / Мэра", "УК, 31", "6"},
-	{"Терроризм", "УК, 32", "6"},
-	{"Срыв спец.операции", "УК, 34", "4"},
-	{"Агитация", "УК, 35", "3"},
-	{"Занятие проституцией", "УК, 36", "3"},
-	{"Изнасилование", "УК, 37", "4"},
-	{"Ложный вызов", "АК, 1", "1"},
+	{"РќР°СЂСѓС€РµРЅРёРµ РїРѕСЂСЏРґРєР°", "РЈРљ, 1", "1"},
+	{"РҐСЂР°РЅРµРЅРёРµ РєР»СЋС‡РµР№", "РЈРљ, 2", "2"},
+	{"Р”СЂР°РєР°", "РЈРљ, 3", "2"},
+	{"РќРѕС€РµРЅРёРµ РѕСЂСѓР¶РёСЏ РІ РѕС‚РєСЂС‹С‚РѕРј РІРёРґРµ", "РЈРљ, 4", "2"},
+	{"РљР»РµРІРµС‚Р°", "РЈРљ, 5", "2"},
+	{"РџСЂРѕРґР°Р¶Р° РѕСЂСѓР¶РёСЏ", "РЈРљ, 6", "2"},
+	{"РџРѕРґРґРµР»РєР°", "РЈРљ, 7", "2"},
+	{"РќРµСѓРїР»Р°С‚Р° С€С‚СЂР°С„Р°", "РЈРљ, 8", "2"},
+	{"РњР°РЅРёС„РµСЃС‚Р°С†РёСЏ", "РЈРљ, 9", "2"},
+	{"РџРѕСЂС‡Р° РёРјСѓС‰РµСЃС‚РІР°", "РЈРљ, 10", "2"},
+	{"РЈРіРѕРЅ", "РЈРљ, 11", "2"},
+	{"РќР°РµР·Рґ РЅР° РїРµС€РµС…РѕРґР°", "РЈРљ, 12", "3"},
+	{"Р’С‹СЂР°С‰РёРІР°РЅРёРµ РЅР°СЂРєРѕС‚РёС‡РµСЃРєРёС… РІРµС‰РµСЃС‚РІ", "РЈРљ, 13", "3"},
+	{"РџСЂРѕРЅРёРєРЅРѕРІРµРЅРёРµ", "РЈРљ, 14", "3"},
+	{"РџРѕРјРµС…Р°", "РЈРљ, 15", "2"},
+	{"Р’Р·СЏС‚РєР°", "РЈРљ, 16", "2"},
+	{"РќРѕС€РµРЅРёРµ РѕСЂСѓР¶РёСЏ Р±РµР· Р»РёС†РµРЅР·РёРё", "РЈРљ, 17", "2"},
+	{"РћСЃРєРѕСЂР±Р»РµРЅРёРµ", "РЈРљ, 18", "2"},
+	{"РќРµРїРѕРґС‡РёРЅРµРЅРёРµ", "РЈРљ, 19", "2"},
+	{"РџСЂРѕРґР°Р¶Р° РіРѕСЃ. РёРјСѓС‰РµСЃС‚РІР°", "РЈРљ, 20", "3"},
+	{"РџСЂРѕРґР°Р¶Р° РЅР°СЂРєРѕС‚РёРєРѕРІ", "РЈРљ, 21", "3"},
+	{"РҐСЂР°РЅРµРЅРёРµ Р·Р°Рї. РІРµС‰РµСЃС‚РІ", "РЈРљ, 22", "3"},
+	{"РЈРїРѕС‚СЂРµР±Р»РµРЅРёРµ РЅР°СЂРєРѕС‚РёРєРѕРІ", "РЈРљ, 23", "3"},
+	{"Р Р°Р·Р±РѕР№", "РЈРљ, 24", "3"},
+	{"РЈС…РѕРґ", "РЈРљ, 25", "3"},
+	{"РљСЂР°Р¶Р°", "РЈРљ, 26", "3"},
+	{"РџРѕС…РёС‰РµРЅРёРµ", "РЈРљ, 27", "4"},
+	{"РџРѕР±РµРі", "РЈРљ, 28", "4"},
+	{"РќР°РїР°РґРµРЅРёРµ РЅР° РІРѕРµРЅРЅРѕСЃР»СѓР¶Р°С‰РµРіРѕ", "РЈРљ, 29", "4"},
+	{"РќР°РїР°РґРµРЅРёРµ РЅР° РїРѕР»РёС†РµР№СЃРєРѕРіРѕ", "РЈРљ, 30", "5"},
+	{"РќР°РїР°РґРµРЅРёРµ РЅР° РђРіРµРЅС‚Р° Р¤Р‘Р  / РњСЌСЂР°", "РЈРљ, 31", "6"},
+	{"РўРµСЂСЂРѕСЂРёР·Рј", "РЈРљ, 32", "6"},
+	{"РЎСЂС‹РІ СЃРїРµС†.РѕРїРµСЂР°С†РёРё", "РЈРљ, 34", "4"},
+	{"РђРіРёС‚Р°С†РёСЏ", "РЈРљ, 35", "3"},
+	{"Р—Р°РЅСЏС‚РёРµ РїСЂРѕСЃС‚РёС‚СѓС†РёРµР№", "РЈРљ, 36", "3"},
+	{"РР·РЅР°СЃРёР»РѕРІР°РЅРёРµ", "РЈРљ, 37", "4"},
+	{"Р›РѕР¶РЅС‹Р№ РІС‹Р·РѕРІ", "РђРљ, 1", "1"},
 }
 
 local side_of_the_world_list = {
-    "Север",
-    "Северо-запад",
-    "Запад",
-    "Юго-запад",
-    "Юг",
-    "Юго-восток",
-    "Восток",
-    "Северо-восток"
+    "РЎРµРІРµСЂ",
+    "РЎРµРІРµСЂРѕ-Р·Р°РїР°Рґ",
+    "Р—Р°РїР°Рґ",
+    "Р®РіРѕ-Р·Р°РїР°Рґ",
+    "Р®Рі",
+    "Р®РіРѕ-РІРѕСЃС‚РѕРє",
+    "Р’РѕСЃС‚РѕРє",
+    "РЎРµРІРµСЂРѕ-РІРѕСЃС‚РѕРє"
 }
 
 local clickBinds = {
-	{ "ПОЛИЦИЯ", 
+	{ "РџРћР›РР¦РРЇ", 
 		{
-			{"Представиться", 
-				{"Здравствуйте. Сотрудник полиции {myName}."}
+			{"РџСЂРµРґСЃС‚Р°РІРёС‚СЊСЃСЏ", 
+				{"Р—РґСЂР°РІСЃС‚РІСѓР№С‚Рµ. РЎРѕС‚СЂСѓРґРЅРёРє РїРѕР»РёС†РёРё {myName}."}
 			}, 
-			{"Значок", 
-				{"/do На груди значок Police Department LS."}
+			{"Р—РЅР°С‡РѕРє", 
+				{"/do РќР° РіСЂСѓРґРё Р·РЅР°С‡РѕРє Police Department LS."}
 			},
-			{"Миранда",  
-				{"Вы имеете право хранить молчание. Всё, что вы скажете, может и будет использовано против вас в суде.", 
-					"Ваш адвокат может присутствовать при допросе. Если вы не можете оплатить услуги адвоката...",
-					"...он будет предоставлен вам государством. Вы понимаете свои права?"}
+			{"РњРёСЂР°РЅРґР°",  
+				{"Р’С‹ РёРјРµРµС‚Рµ РїСЂР°РІРѕ С…СЂР°РЅРёС‚СЊ РјРѕР»С‡Р°РЅРёРµ. Р’СЃС‘, С‡С‚Рѕ РІС‹ СЃРєР°Р¶РµС‚Рµ, РјРѕР¶РµС‚ Рё Р±СѓРґРµС‚ РёСЃРїРѕР»СЊР·РѕРІР°РЅРѕ РїСЂРѕС‚РёРІ РІР°СЃ РІ СЃСѓРґРµ.", 
+					"Р’Р°С€ Р°РґРІРѕРєР°С‚ РјРѕР¶РµС‚ РїСЂРёСЃСѓС‚СЃС‚РІРѕРІР°С‚СЊ РїСЂРё РґРѕРїСЂРѕСЃРµ. Р•СЃР»Рё РІС‹ РЅРµ РјРѕР¶РµС‚Рµ РѕРїР»Р°С‚РёС‚СЊ СѓСЃР»СѓРіРё Р°РґРІРѕРєР°С‚Р°...",
+					"...РѕРЅ Р±СѓРґРµС‚ РїСЂРµРґРѕСЃС‚Р°РІР»РµРЅ РІР°Рј РіРѕСЃСѓРґР°СЂСЃС‚РІРѕРј. Р’С‹ РїРѕРЅРёРјР°РµС‚Рµ СЃРІРѕРё РїСЂР°РІР°?"}
 			}
 		}
 	},
-	{ "КОМАНДЫ", 
+	{ "РљРћРњРђРќР”Р«", 
 		{
-			{"Админы Online", 
+			{"РђРґРјРёРЅС‹ Online", 
 				{"/admins"}
 			}, 
 			{"Members", 
 				{"/members 1"}
 			},
-			{"Саппорты", 
+			{"РЎР°РїРїРѕСЂС‚С‹", 
 				{"/supports"}
 			}, 
 			{"Strobe ON", 
@@ -186,169 +186,169 @@ local clickBinds = {
 			},
 		}
 	},
-	{	"ТАКСИСТ", 
+	{	"РўРђРљРЎРРЎРў", 
 		{
-			{"Приветствие", 
-				{"Здравствуйте. Рад Вас видеть! Куда едем?"}
+			{"РџСЂРёРІРµС‚СЃС‚РІРёРµ", 
+				{"Р—РґСЂР°РІСЃС‚РІСѓР№С‚Рµ. Р Р°Рґ Р’Р°СЃ РІРёРґРµС‚СЊ! РљСѓРґР° РµРґРµРј?"}
 			}, 
-			{"Уточнить", 
-				{"Уточните конечную точку маршрута."}
+			{"РЈС‚РѕС‡РЅРёС‚СЊ", 
+				{"РЈС‚РѕС‡РЅРёС‚Рµ РєРѕРЅРµС‡РЅСѓСЋ С‚РѕС‡РєСѓ РјР°СЂС€СЂСѓС‚Р°."}
 			}, 
-			{"Принять заказ", 
-				{"Заказ принят! Выдвигаемся."}
+			{"РџСЂРёРЅСЏС‚СЊ Р·Р°РєР°Р·", 
+				{"Р—Р°РєР°Р· РїСЂРёРЅСЏС‚! Р’С‹РґРІРёРіР°РµРјСЃСЏ."}
 			}, 
 		}
 	},
 }
 
-local tenCodes_1 = u8[[• 10-1 - Встреча всех офицеров на дежурстве >> локацию и код.
-• 10-2 - Патрулирование >> Район/Округ и напарник.
-• 10-3 - Радиомолчание >> Передаются только срочные сообщения.
-• 10-4 - Принято/Так точно.
-• 10-5 - Повторите последнее сообщение.
-• 10-6 - Не принято/Не верно/Нет.
-• 10-7 - Ожидайте.
-• 10-8 - В настоящее время занят/не доступен >> Причина.
-• 10-9 - В настоящее время занят/не доступен (детективы на ситуации).
-• 10-11 - Режим Stand-by (Ожидание).
-• 10-14 - Запрос транспортировки >> локацию и цель транспортировки.
-• 10-15 - Подозреваемые арестованы >> количество задержанных и локацию.
-• 10-18 - Требуется поддержка дополнительных юнитов.
-• 10-20 - Локация.
-• 10-21 - Сообщение о статусе и местонахождении, описание ситуации.
-• 10-22 - Направление на локацию >> локацию и к кому идет обращение.
-• 10-27 - Меняю маркировку патруля >> старую и новую маркировку.
-• 10-40 - Большое скопление людей (4 и больше) >> локацию.
-• 10-41 - Нелегальная активность.
-• 10-46 - Проведение обыска.
-• 10-55 - Траффик стоп.
-• 10-56 - Запрос информации о подозреваемом (mdc) >> 
-			   номер и марку машины / Имя Фамилию.
-• 10-57 - Погоня за автомобилем >> номер/марку/цвет транспорта и его направление.
-• 10-58 - Пешая погоня >> приметы подозреваемого, вооружен ли он и направление.
-• 10-60 - Информация об автомобиле >> номер/марку/цвет транспорта, 
-		       информацию о владельце и кол-во пассажиров.
-• 10-61 - Информация о пешем подозреваемом >> пол/расу, 
-			   одежду и Имя Фамилию(если известно).
-• 10-66 - Остановка повышенного риска (подозреваемый вооружен/совершил 
-			   преступление. Если остановка после погони).
-• 10-70 - Запрос поддержки >> требуемое количество юнитов 
-			   и код описывающий ситуацию.
-• 10-71 - Запрос медицинской поддержки.
-• 10-99 - Ситуация урегулирована.]]
-local tenCodes_2 = u8[[• CODE 0 - Необходима немедленная поддержка. Подаётся когда офицер на земле 
-			       (ранен/убит). Офицеры не имею права не реагировать на данный сигнал.
-• CODE 1 - Офицер в бедственном положении и ему требуется немедленная 
-			       поддержка.
-• CODE 2 - Срочный вызов (без сирен/стробоскопов)
-• CODE 3 - Срочный вызов (с сиренами/стробоскопами)
-• CODE 4 - Помощь не требуется.
-• CODE 4.1 - Подозреваемый скрылся, все, кто присоединился, 
-			          должны отправиться на поиски в указанном районе.
-• CODE 6 - Задерживаюсь на (включая локацию)
-• CODE 7 - К офицерам применили смертоносное оружие (( ДБ/ДМ ))
+local tenCodes_1 = u8[[вЂў 10-1 - Р’СЃС‚СЂРµС‡Р° РІСЃРµС… РѕС„РёС†РµСЂРѕРІ РЅР° РґРµР¶СѓСЂСЃС‚РІРµ >> Р»РѕРєР°С†РёСЋ Рё РєРѕРґ.
+вЂў 10-2 - РџР°С‚СЂСѓР»РёСЂРѕРІР°РЅРёРµ >> Р Р°Р№РѕРЅ/РћРєСЂСѓРі Рё РЅР°РїР°СЂРЅРёРє.
+вЂў 10-3 - Р Р°РґРёРѕРјРѕР»С‡Р°РЅРёРµ >> РџРµСЂРµРґР°СЋС‚СЃСЏ С‚РѕР»СЊРєРѕ СЃСЂРѕС‡РЅС‹Рµ СЃРѕРѕР±С‰РµРЅРёСЏ.
+вЂў 10-4 - РџСЂРёРЅСЏС‚Рѕ/РўР°Рє С‚РѕС‡РЅРѕ.
+вЂў 10-5 - РџРѕРІС‚РѕСЂРёС‚Рµ РїРѕСЃР»РµРґРЅРµРµ СЃРѕРѕР±С‰РµРЅРёРµ.
+вЂў 10-6 - РќРµ РїСЂРёРЅСЏС‚Рѕ/РќРµ РІРµСЂРЅРѕ/РќРµС‚.
+вЂў 10-7 - РћР¶РёРґР°Р№С‚Рµ.
+вЂў 10-8 - Р’ РЅР°СЃС‚РѕСЏС‰РµРµ РІСЂРµРјСЏ Р·Р°РЅСЏС‚/РЅРµ РґРѕСЃС‚СѓРїРµРЅ >> РџСЂРёС‡РёРЅР°.
+вЂў 10-9 - Р’ РЅР°СЃС‚РѕСЏС‰РµРµ РІСЂРµРјСЏ Р·Р°РЅСЏС‚/РЅРµ РґРѕСЃС‚СѓРїРµРЅ (РґРµС‚РµРєС‚РёРІС‹ РЅР° СЃРёС‚СѓР°С†РёРё).
+вЂў 10-11 - Р РµР¶РёРј Stand-by (РћР¶РёРґР°РЅРёРµ).
+вЂў 10-14 - Р—Р°РїСЂРѕСЃ С‚СЂР°РЅСЃРїРѕСЂС‚РёСЂРѕРІРєРё >> Р»РѕРєР°С†РёСЋ Рё С†РµР»СЊ С‚СЂР°РЅСЃРїРѕСЂС‚РёСЂРѕРІРєРё.
+вЂў 10-15 - РџРѕРґРѕР·СЂРµРІР°РµРјС‹Рµ Р°СЂРµСЃС‚РѕРІР°РЅС‹ >> РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РґРµСЂР¶Р°РЅРЅС‹С… Рё Р»РѕРєР°С†РёСЋ.
+вЂў 10-18 - РўСЂРµР±СѓРµС‚СЃСЏ РїРѕРґРґРµСЂР¶РєР° РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹С… СЋРЅРёС‚РѕРІ.
+вЂў 10-20 - Р›РѕРєР°С†РёСЏ.
+вЂў 10-21 - РЎРѕРѕР±С‰РµРЅРёРµ Рѕ СЃС‚Р°С‚СѓСЃРµ Рё РјРµСЃС‚РѕРЅР°С…РѕР¶РґРµРЅРёРё, РѕРїРёСЃР°РЅРёРµ СЃРёС‚СѓР°С†РёРё.
+вЂў 10-22 - РќР°РїСЂР°РІР»РµРЅРёРµ РЅР° Р»РѕРєР°С†РёСЋ >> Р»РѕРєР°С†РёСЋ Рё Рє РєРѕРјСѓ РёРґРµС‚ РѕР±СЂР°С‰РµРЅРёРµ.
+вЂў 10-27 - РњРµРЅСЏСЋ РјР°СЂРєРёСЂРѕРІРєСѓ РїР°С‚СЂСѓР»СЏ >> СЃС‚Р°СЂСѓСЋ Рё РЅРѕРІСѓСЋ РјР°СЂРєРёСЂРѕРІРєСѓ.
+вЂў 10-40 - Р‘РѕР»СЊС€РѕРµ СЃРєРѕРїР»РµРЅРёРµ Р»СЋРґРµР№ (4 Рё Р±РѕР»СЊС€Рµ) >> Р»РѕРєР°С†РёСЋ.
+вЂў 10-41 - РќРµР»РµРіР°Р»СЊРЅР°СЏ Р°РєС‚РёРІРЅРѕСЃС‚СЊ.
+вЂў 10-46 - РџСЂРѕРІРµРґРµРЅРёРµ РѕР±С‹СЃРєР°.
+вЂў 10-55 - РўСЂР°С„С„РёРє СЃС‚РѕРї.
+вЂў 10-56 - Р—Р°РїСЂРѕСЃ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РїРѕРґРѕР·СЂРµРІР°РµРјРѕРј (mdc) >> 
+			   РЅРѕРјРµСЂ Рё РјР°СЂРєСѓ РјР°С€РёРЅС‹ / РРјСЏ Р¤Р°РјРёР»РёСЋ.
+вЂў 10-57 - РџРѕРіРѕРЅСЏ Р·Р° Р°РІС‚РѕРјРѕР±РёР»РµРј >> РЅРѕРјРµСЂ/РјР°СЂРєСѓ/С†РІРµС‚ С‚СЂР°РЅСЃРїРѕСЂС‚Р° Рё РµРіРѕ РЅР°РїСЂР°РІР»РµРЅРёРµ.
+вЂў 10-58 - РџРµС€Р°СЏ РїРѕРіРѕРЅСЏ >> РїСЂРёРјРµС‚С‹ РїРѕРґРѕР·СЂРµРІР°РµРјРѕРіРѕ, РІРѕРѕСЂСѓР¶РµРЅ Р»Рё РѕРЅ Рё РЅР°РїСЂР°РІР»РµРЅРёРµ.
+вЂў 10-60 - РРЅС„РѕСЂРјР°С†РёСЏ РѕР± Р°РІС‚РѕРјРѕР±РёР»Рµ >> РЅРѕРјРµСЂ/РјР°СЂРєСѓ/С†РІРµС‚ С‚СЂР°РЅСЃРїРѕСЂС‚Р°, 
+		       РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РІР»Р°РґРµР»СЊС†Рµ Рё РєРѕР»-РІРѕ РїР°СЃСЃР°Р¶РёСЂРѕРІ.
+вЂў 10-61 - РРЅС„РѕСЂРјР°С†РёСЏ Рѕ РїРµС€РµРј РїРѕРґРѕР·СЂРµРІР°РµРјРѕРј >> РїРѕР»/СЂР°СЃСѓ, 
+			   РѕРґРµР¶РґСѓ Рё РРјСЏ Р¤Р°РјРёР»РёСЋ(РµСЃР»Рё РёР·РІРµСЃС‚РЅРѕ).
+вЂў 10-66 - РћСЃС‚Р°РЅРѕРІРєР° РїРѕРІС‹С€РµРЅРЅРѕРіРѕ СЂРёСЃРєР° (РїРѕРґРѕР·СЂРµРІР°РµРјС‹Р№ РІРѕРѕСЂСѓР¶РµРЅ/СЃРѕРІРµСЂС€РёР» 
+			   РїСЂРµСЃС‚СѓРїР»РµРЅРёРµ. Р•СЃР»Рё РѕСЃС‚Р°РЅРѕРІРєР° РїРѕСЃР»Рµ РїРѕРіРѕРЅРё).
+вЂў 10-70 - Р—Р°РїСЂРѕСЃ РїРѕРґРґРµСЂР¶РєРё >> С‚СЂРµР±СѓРµРјРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЋРЅРёС‚РѕРІ 
+			   Рё РєРѕРґ РѕРїРёСЃС‹РІР°СЋС‰РёР№ СЃРёС‚СѓР°С†РёСЋ.
+вЂў 10-71 - Р—Р°РїСЂРѕСЃ РјРµРґРёС†РёРЅСЃРєРѕР№ РїРѕРґРґРµСЂР¶РєРё.
+вЂў 10-99 - РЎРёС‚СѓР°С†РёСЏ СѓСЂРµРіСѓР»РёСЂРѕРІР°РЅР°.]]
+local tenCodes_2 = u8[[вЂў CODE 0 - РќРµРѕР±С…РѕРґРёРјР° РЅРµРјРµРґР»РµРЅРЅР°СЏ РїРѕРґРґРµСЂР¶РєР°. РџРѕРґР°С‘С‚СЃСЏ РєРѕРіРґР° РѕС„РёС†РµСЂ РЅР° Р·РµРјР»Рµ 
+			       (СЂР°РЅРµРЅ/СѓР±РёС‚). РћС„РёС†РµСЂС‹ РЅРµ РёРјРµСЋ РїСЂР°РІР° РЅРµ СЂРµР°РіРёСЂРѕРІР°С‚СЊ РЅР° РґР°РЅРЅС‹Р№ СЃРёРіРЅР°Р».
+вЂў CODE 1 - РћС„РёС†РµСЂ РІ Р±РµРґСЃС‚РІРµРЅРЅРѕРј РїРѕР»РѕР¶РµРЅРёРё Рё РµРјСѓ С‚СЂРµР±СѓРµС‚СЃСЏ РЅРµРјРµРґР»РµРЅРЅР°СЏ 
+			       РїРѕРґРґРµСЂР¶РєР°.
+вЂў CODE 2 - РЎСЂРѕС‡РЅС‹Р№ РІС‹Р·РѕРІ (Р±РµР· СЃРёСЂРµРЅ/СЃС‚СЂРѕР±РѕСЃРєРѕРїРѕРІ)
+вЂў CODE 3 - РЎСЂРѕС‡РЅС‹Р№ РІС‹Р·РѕРІ (СЃ СЃРёСЂРµРЅР°РјРё/СЃС‚СЂРѕР±РѕСЃРєРѕРїР°РјРё)
+вЂў CODE 4 - РџРѕРјРѕС‰СЊ РЅРµ С‚СЂРµР±СѓРµС‚СЃСЏ.
+вЂў CODE 4.1 - РџРѕРґРѕР·СЂРµРІР°РµРјС‹Р№ СЃРєСЂС‹Р»СЃСЏ, РІСЃРµ, РєС‚Рѕ РїСЂРёСЃРѕРµРґРёРЅРёР»СЃСЏ, 
+			          РґРѕР»Р¶РЅС‹ РѕС‚РїСЂР°РІРёС‚СЊСЃСЏ РЅР° РїРѕРёСЃРєРё РІ СѓРєР°Р·Р°РЅРЅРѕРј СЂР°Р№РѕРЅРµ.
+вЂў CODE 6 - Р—Р°РґРµСЂР¶РёРІР°СЋСЃСЊ РЅР° (РІРєР»СЋС‡Р°СЏ Р»РѕРєР°С†РёСЋ)
+вЂў CODE 7 - Рљ РѕС„РёС†РµСЂР°Рј РїСЂРёРјРµРЅРёР»Рё СЃРјРµСЂС‚РѕРЅРѕСЃРЅРѕРµ РѕСЂСѓР¶РёРµ (( Р”Р‘/Р”Рњ ))
 
-• ADAM (A) — Юнит из двух вооруженных офицеров на маркированном транспорте. 
-			             От Офицера совместно с Офицер и выше.
-• LINCOLN (L) — Юнит из одного вооруженного офицера на маркированном 
-			                 транспорте. От Сержант и выше.
-• MARY (M) MOTORCYCLE UNIT — Мотоцикл патруль-дивизиона, для 
-			                контроля трафика и преследования двухколесного т/с.
- • AIR (AIR) — Вертолет воздушной поддержки. Для пилотов соотв. дивизиона.]]
+вЂў ADAM (A) вЂ” Р®РЅРёС‚ РёР· РґРІСѓС… РІРѕРѕСЂСѓР¶РµРЅРЅС‹С… РѕС„РёС†РµСЂРѕРІ РЅР° РјР°СЂРєРёСЂРѕРІР°РЅРЅРѕРј С‚СЂР°РЅСЃРїРѕСЂС‚Рµ. 
+			             РћС‚ РћС„РёС†РµСЂР° СЃРѕРІРјРµСЃС‚РЅРѕ СЃ РћС„РёС†РµСЂ Рё РІС‹С€Рµ.
+вЂў LINCOLN (L) вЂ” Р®РЅРёС‚ РёР· РѕРґРЅРѕРіРѕ РІРѕРѕСЂСѓР¶РµРЅРЅРѕРіРѕ РѕС„РёС†РµСЂР° РЅР° РјР°СЂРєРёСЂРѕРІР°РЅРЅРѕРј 
+			                 С‚СЂР°РЅСЃРїРѕСЂС‚Рµ. РћС‚ РЎРµСЂР¶Р°РЅС‚ Рё РІС‹С€Рµ.
+вЂў MARY (M) MOTORCYCLE UNIT вЂ” РњРѕС‚РѕС†РёРєР» РїР°С‚СЂСѓР»СЊ-РґРёРІРёР·РёРѕРЅР°, РґР»СЏ 
+			                РєРѕРЅС‚СЂРѕР»СЏ С‚СЂР°С„РёРєР° Рё РїСЂРµСЃР»РµРґРѕРІР°РЅРёСЏ РґРІСѓС…РєРѕР»РµСЃРЅРѕРіРѕ С‚/СЃ.
+ вЂў AIR (AIR) вЂ” Р’РµСЂС‚РѕР»РµС‚ РІРѕР·РґСѓС€РЅРѕР№ РїРѕРґРґРµСЂР¶РєРё. Р”Р»СЏ РїРёР»РѕС‚РѕРІ СЃРѕРѕС‚РІ. РґРёРІРёР·РёРѕРЅР°.]]
  
  
 local items = {
       ["Char"] = {
         {
-          title = u8"Наручники",
+          title = u8"РќР°СЂСѓС‡РЅРёРєРё",
           func = function ()
 			lua_thread.create(function()
-				sampSendChat("/me достал из чехла на поясе наручники")
+				sampSendChat("/me РґРѕСЃС‚Р°Р» РёР· С‡РµС…Р»Р° РЅР° РїРѕСЏСЃРµ РЅР°СЂСѓС‡РЅРёРєРё")
 				wait(1700)
 				sampSendChat("/cuff {targetid}")
 			end)
           end
         },
         {
-          title = u8"Обыскать",
+          title = u8"РћР±С‹СЃРєР°С‚СЊ",
           func = function ()
 				lua_thread.create(function()
-					sampSendChat("/me надел перчатки, похлопал {targetName} по рукам и туловищу")
+					sampSendChat("/me РЅР°РґРµР» РїРµСЂС‡Р°С‚РєРё, РїРѕС…Р»РѕРїР°Р» {targetName} РїРѕ СЂСѓРєР°Рј Рё С‚СѓР»РѕРІРёС‰Сѓ")
 					wait(1700)
 					sampSendChat("/frisk {targetid}")
 				end)
 			end
         },
         {
-          title = u8"Вести за собой",
+          title = u8"Р’РµСЃС‚Рё Р·Р° СЃРѕР±РѕР№",
           func = function ()
             	lua_thread.create(function()
-					sampSendChat("/me схватил {targetName} и повёл за собой")
+					sampSendChat("/me СЃС…РІР°С‚РёР» {targetName} Рё РїРѕРІС‘Р» Р·Р° СЃРѕР±РѕР№")
 					wait(1700)
 					sampSendChat("/follow {targetid}")
 				end)
           end
         },
         {
-          title = u8"Усадить в тачку",
+          title = u8"РЈСЃР°РґРёС‚СЊ РІ С‚Р°С‡РєСѓ",
           func = function ()
             lua_thread.create(function()
-				sampSendChat("/me затащил {targetName} в транспорт")
+				sampSendChat("/me Р·Р°С‚Р°С‰РёР» {targetName} РІ С‚СЂР°РЅСЃРїРѕСЂС‚")
 				wait(1700)
 				sampSendChat("/cput {targetid}")
 			end)
           end
         },
         {
-          title = u8"Арестовать",
+          title = u8"РђСЂРµСЃС‚РѕРІР°С‚СЊ",
           func = function ()
             	lua_thread.create(function()
-				sampSendChat("/me сунул руку в карман, достал из него связку ключей и открыл камеру")
+				sampSendChat("/me СЃСѓРЅСѓР» СЂСѓРєСѓ РІ РєР°СЂРјР°РЅ, РґРѕСЃС‚Р°Р» РёР· РЅРµРіРѕ СЃРІСЏР·РєСѓ РєР»СЋС‡РµР№ Рё РѕС‚РєСЂС‹Р» РєР°РјРµСЂСѓ")
 				wait(1700)
 				sampSendChat("/arrest {targetid}")
 				wait(1700)
-				sampSendChat("/me толкнул {targetName} в камеру, после чего закрыл её")
+				sampSendChat("/me С‚РѕР»РєРЅСѓР» {targetName} РІ РєР°РјРµСЂСѓ, РїРѕСЃР»Рµ С‡РµРіРѕ Р·Р°РєСЂС‹Р» РµС‘")
 			end)
           end
         },
 		{
-          title = u8"Изъять лицензию",
+          title = u8"РР·СЉСЏС‚СЊ Р»РёС†РµРЅР·РёСЋ",
           func = function ()
             	lua_thread.create(function()
-				sampSendChat("/me достал КПК и аннулировал лицензию {targetName} по базе данных")
+				sampSendChat("/me РґРѕСЃС‚Р°Р» РљРџРљ Рё Р°РЅРЅСѓР»РёСЂРѕРІР°Р» Р»РёС†РµРЅР·РёСЋ {targetName} РїРѕ Р±Р°Р·Рµ РґР°РЅРЅС‹С…")
 				wait(1700)
 				sampSendChat("/take {targetid}")
 			end)
           end
         },
 		{
-          title = u8"Протокол допроса",
+          title = u8"РџСЂРѕС‚РѕРєРѕР» РґРѕРїСЂРѕСЃР°",
           func = function ()
             	lua_thread.create(function()
-				sampSendChat("/me начал заполнять протокол на имя {targetName} под номером {targetid}")
+				sampSendChat("/me РЅР°С‡Р°Р» Р·Р°РїРѕР»РЅСЏС‚СЊ РїСЂРѕС‚РѕРєРѕР» РЅР° РёРјСЏ {targetName} РїРѕРґ РЅРѕРјРµСЂРѕРј {targetid}")
 				wait(1700)
-				sampSendChat("/do На столе лежит мокрая печать участка LSPD.")
+				sampSendChat("/do РќР° СЃС‚РѕР»Рµ Р»РµР¶РёС‚ РјРѕРєСЂР°СЏ РїРµС‡Р°С‚СЊ СѓС‡Р°СЃС‚РєР° LSPD.")
 				wait(1700)
-				sampSendChat("/me поставил печать на протоколе и закрыл дело {targetid}")
+				sampSendChat("/me РїРѕСЃС‚Р°РІРёР» РїРµС‡Р°С‚СЊ РЅР° РїСЂРѕС‚РѕРєРѕР»Рµ Рё Р·Р°РєСЂС‹Р» РґРµР»Рѕ {targetid}")
 			end)
           end
         },
       },
       ["Car"] = {
         {
-          title = faicons.ICON_CAR .. u8" Заправить",
+          title = faicons.ICON_CAR .. u8" Р—Р°РїСЂР°РІРёС‚СЊ",
           func = function ()
             sampSendChat("/fill")
           end
         },
         {
-          title = faicons.ICON_TINT .. u8" Канистра",
+          title = faicons.ICON_TINT .. u8" РљР°РЅРёСЃС‚СЂР°",
           func = function ()
             sampSendChat("/fillcar")
           end
         },
         {
-          title = faicons.ICON_LOCK .. u8" Дверной замок",
+          title = faicons.ICON_LOCK .. u8" Р”РІРµСЂРЅРѕР№ Р·Р°РјРѕРє",
           func = function ()
             sampSendChat("/lock")
           end
@@ -394,18 +394,18 @@ function getVariables()
 	myCompas = side_of_the_world_list[GetPlayerFacingDirection(PLAYER_PED, getCharHeading(PLAYER_PED))]
 	
 	args = {
-	{	"{myName}", "Ваш ник", myName	},
-	{	"{myid}", "Ваш ID", myID	},
+	{	"{myName}", "Р’Р°С€ РЅРёРє", myName	},
+	{	"{myid}", "Р’Р°С€ ID", myID	},
 	
-	{	"{targetid}", "ID цели", targetID	},
-	{	"{targetName}", "Ник цели", targetName	},
+	{	"{targetid}", "ID С†РµР»Рё", targetID	},
+	{	"{targetName}", "РќРёРє С†РµР»Рё", targetName	},
 	
-	{	"{date}", "Дата", currentDate	},
-	{	"{time}", "Время", currentTime	},
-	{	"{square}", "Сектор", mySquare	},
-	{	"{zone}", "Район", myZone	},
-	{	"{compas}", "Компас", myCompas	},
-	{	"{partners}", "Напарники", getMyPassengers() }
+	{	"{date}", "Р”Р°С‚Р°", currentDate	},
+	{	"{time}", "Р’СЂРµРјСЏ", currentTime	},
+	{	"{square}", "РЎРµРєС‚РѕСЂ", mySquare	},
+	{	"{zone}", "Р Р°Р№РѕРЅ", myZone	},
+	{	"{compas}", "РљРѕРјРїР°СЃ", myCompas	},
+	{	"{partners}", "РќР°РїР°СЂРЅРёРєРё", getMyPassengers() }
 }
 end
 
@@ -422,15 +422,15 @@ function screenRender()
 		while isPauseMenuActive() or isKeyDown(VK_F8) do wait(0) end
 		if wallHack == true then wallHackSet(true) end	
 
-			--[[   СЕКЦИЯ #2    ]]
-			--[[renderFontDrawText(smallFont, "ДОКЛАДЫ", centerTextOnScreen(smallFont, "ДОКЛАДЫ"), resY, 0xFF4D4D4D)
+			--[[   РЎР•РљР¦РРЇ #2    ]]
+			--[[renderFontDrawText(smallFont, "Р”РћРљР›РђР”Р«", centerTextOnScreen(smallFont, "Р”РћРљР›РђР”Р«"), resY, 0xFF4D4D4D)
 			
 			resY = resY + indent
-			if drawClickableText(smallFont, "Принять запрос", centerTextOnScreen(smallFont, "Принять запрос"), resY, 0xFFC4C4C4, 0xFFFFDA00) then
+			if drawClickableText(smallFont, "РџСЂРёРЅСЏС‚СЊ Р·Р°РїСЂРѕСЃ", centerTextOnScreen(smallFont, "РџСЂРёРЅСЏС‚СЊ Р·Р°РїСЂРѕСЃ"), resY, 0xFFC4C4C4, 0xFFFFDA00) then
 				if isEmpty(getMyPassengers()) then
-					sampSendChat("/r Принял. Напарник: "..getMyPassengers())
+					sampSendChat("/r РџСЂРёРЅСЏР». РќР°РїР°СЂРЅРёРє: "..getMyPassengers())
 				else
-					sampSendChat("/r Принял.")
+					sampSendChat("/r РџСЂРёРЅСЏР».")
 				end
 			end	]]								
 	end
@@ -483,10 +483,10 @@ function Binder()
 				sampSendChat("/lock")	
 				
 			elseif isKeyDown(VK_MENU) and isKeyJustPressed(VK_1) then
-				sampSendChat("Оставайтесь на месте!")	
+				sampSendChat("РћСЃС‚Р°РІР°Р№С‚РµСЃСЊ РЅР° РјРµСЃС‚Рµ!")	
 
 			elseif isKeyJustPressed(VK_NUMPAD0) then
-				sampSendChat("/seeMe коснулся задней части автомобиля")	
+				sampSendChat("/seeMe РєРѕСЃРЅСѓР»СЃСЏ Р·Р°РґРЅРµР№ С‡Р°СЃС‚Рё Р°РІС‚РѕРјРѕР±РёР»СЏ")	
 			
 			elseif isKeyDown(VK_MENU) and isKeyJustPressed(VK_R) then
 				sampSetChatInputEnabled(true) sampSetChatInputText("/r [PS:PO-I]: ")	
@@ -506,7 +506,7 @@ function Binder()
 				
 											
 			elseif isKeyJustPressed(VK_DECIMAL) then -- Num .
-				sampSendChat("/me резким движением снял контактно-дистанционный электрошокер с пояса")			
+				sampSendChat("/me СЂРµР·РєРёРј РґРІРёР¶РµРЅРёРµРј СЃРЅСЏР» РєРѕРЅС‚Р°РєС‚РЅРѕ-РґРёСЃС‚Р°РЅС†РёРѕРЅРЅС‹Р№ СЌР»РµРєС‚СЂРѕС€РѕРєРµСЂ СЃ РїРѕСЏСЃР°")			
 				
 			elseif isKeyJustPressed(VK_X) then
 				wallHack = not wallHack
@@ -521,9 +521,9 @@ function Binder()
 					if result and getDistanceToPlayer(targetID) <= 4 then
 
 						if isCharOnAnyBike(target_handle) then
-							sampSendChat("/me заломал руку {targetName} и стащил с мотоцикла")
+							sampSendChat("/me Р·Р°Р»РѕРјР°Р» СЂСѓРєСѓ {targetName} Рё СЃС‚Р°С‰РёР» СЃ РјРѕС‚РѕС†РёРєР»Р°")
 						else
-							sampSendChat("/me открыл дверь транспорта и потащил {targetName} за собой")
+							sampSendChat("/me РѕС‚РєСЂС‹Р» РґРІРµСЂСЊ С‚СЂР°РЅСЃРїРѕСЂС‚Р° Рё РїРѕС‚Р°С‰РёР» {targetName} Р·Р° СЃРѕР±РѕР№")
 						end
 						wait(1600)
 						sampSendChat("/ceject {targetid}")
@@ -536,9 +536,9 @@ function Binder()
 			end	
 			if veh ~= -1 then	
 				if isKeyJustPressed(VK_NUMPAD1) then -- NUM1
-					sampSendChat("/m Водитель, прижмитесь правее и остановитесь!")
+					sampSendChat("/m Р’РѕРґРёС‚РµР»СЊ, РїСЂРёР¶РјРёС‚РµСЃСЊ РїСЂР°РІРµРµ Рё РѕСЃС‚Р°РЅРѕРІРёС‚РµСЃСЊ!")
 				elseif isKeyJustPressed(VK_NUMPAD2) then
-					sampSendChat("/m Водитель, заглушите двигатель и положите руки на руль.")
+					sampSendChat("/m Р’РѕРґРёС‚РµР»СЊ, Р·Р°РіР»СѓС€РёС‚Рµ РґРІРёРіР°С‚РµР»СЊ Рё РїРѕР»РѕР¶РёС‚Рµ СЂСѓРєРё РЅР° СЂСѓР»СЊ.")
 				end
 				
 				if getDriverOfCar(veh) == PLAYER_PED then
@@ -638,13 +638,13 @@ function IsPlayerCop(playerid)
 end
 
 function sampGetPlayerSkin(id)
-    if not id or not sampIsPlayerConnected(tonumber(id)) and not tonumber(id) == myID then return false end -- проверяем параметр
-    local isLocalPlayer = tonumber(id) == myID -- проверяем, является ли цель локальным игроком
-    local result, handle = sampGetCharHandleBySampPlayerId(tonumber(id)) -- получаем CharHandle по SAMP-ID
-    if not result and not isLocalPlayer then return false end -- проверяем, валиден ли наш CharHandle
-    local skinid = getCharModel(isLocalPlayer and PLAYER_PED or handle) -- получаем скин нашего CharHandle
-    if skinid < 0 or skinid > 311 then return false end -- проверяем валидность нашего скина, сверяя ID существующих скинов SAMP
-    return true, skinid -- возвращаем статус и ID скина
+    if not id or not sampIsPlayerConnected(tonumber(id)) and not tonumber(id) == myID then return false end -- РїСЂРѕРІРµСЂСЏРµРј РїР°СЂР°РјРµС‚СЂ
+    local isLocalPlayer = tonumber(id) == myID -- РїСЂРѕРІРµСЂСЏРµРј, СЏРІР»СЏРµС‚СЃСЏ Р»Рё С†РµР»СЊ Р»РѕРєР°Р»СЊРЅС‹Рј РёРіСЂРѕРєРѕРј
+    local result, handle = sampGetCharHandleBySampPlayerId(tonumber(id)) -- РїРѕР»СѓС‡Р°РµРј CharHandle РїРѕ SAMP-ID
+    if not result and not isLocalPlayer then return false end -- РїСЂРѕРІРµСЂСЏРµРј, РІР°Р»РёРґРµРЅ Р»Рё РЅР°С€ CharHandle
+    local skinid = getCharModel(isLocalPlayer and PLAYER_PED or handle) -- РїРѕР»СѓС‡Р°РµРј СЃРєРёРЅ РЅР°С€РµРіРѕ CharHandle
+    if skinid < 0 or skinid > 311 then return false end -- РїСЂРѕРІРµСЂСЏРµРј РІР°Р»РёРґРЅРѕСЃС‚СЊ РЅР°С€РµРіРѕ СЃРєРёРЅР°, СЃРІРµСЂСЏСЏ ID СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёС… СЃРєРёРЅРѕРІ SAMP
+    return true, skinid -- РІРѕР·РІСЂР°С‰Р°РµРј СЃС‚Р°С‚СѓСЃ Рё ID СЃРєРёРЅР°
 end
 
 function writeChatLog(string)
@@ -657,7 +657,7 @@ function onSystemInitialized()
 	writeChatLog(("Session started at %s"):format(os.date("%d/%m/%Y")))
 end
 
-function onScriptTerminate(script, quitGame) -- действия при отключении скрипта
+function onScriptTerminate(script, quitGame) -- РґРµР№СЃС‚РІРёСЏ РїСЂРё РѕС‚РєР»СЋС‡РµРЅРёРё СЃРєСЂРёРїС‚Р°
 	if script == thisScript() then
 		if quitGame then			
 			writeChatLog("Logging ended\n")
@@ -797,7 +797,7 @@ function workInBackgroundSet()
         memory.setuint8(7635034, 1)
         memory.fill(7623723, 144, 8)
         memory.fill(5499528, 144, 6)
-		memory.fill(0x00531155, 0x90, 5, true) -- Фиксим прыжок на shift при аафк.
+		memory.fill(0x00531155, 0x90, 5, true) -- Р¤РёРєСЃРёРј РїСЂС‹Р¶РѕРє РЅР° shift РїСЂРё Р°Р°С„Рє.
 		memory.write(7634870, 1, 1, true)
 		memory.write(7635034, 1, 1, true)
 		print("{FFD500}AAFK {00DF0F}[ON]")
@@ -824,7 +824,7 @@ function drawClickableText(font, text, posX, posY, color, colorA)
    end
 end
 
-function getDistanceToPlayer(playerId) -- дистанция до игрока
+function getDistanceToPlayer(playerId) -- РґРёСЃС‚Р°РЅС†РёСЏ РґРѕ РёРіСЂРѕРєР°
 	if not sampIsPlayerConnected(playerId) then return end
 	local result, ped = sampGetCharHandleBySampPlayerId(playerId)
 	if result and doesCharExist(ped) then
@@ -836,8 +836,8 @@ function getDistanceToPlayer(playerId) -- дистанция до игрока
 end
 
 function getMySquareName()
-	if getActiveInterior() ~= 0 then return "Неизвестно" end
-    local squares = {"А", "Б", "В", "Г", "Д", "Ж", "З", "И", "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Я",
+	if getActiveInterior() ~= 0 then return "РќРµРёР·РІРµСЃС‚РЅРѕ" end
+    local squares = {"Рђ", "Р‘", "Р’", "Р“", "Р”", "Р–", "Р—", "Р", "Рљ", "Р›", "Рњ", "Рќ", "Рћ", "Рџ", "Р ", "РЎ", "Рў", "РЈ", "Р¤", "РҐ", "Р¦", "Р§", "РЁ", "РЇ",
     }	
     local xCoord, yCoord = getCharCoordinates(PLAYER_PED)
     return squares[math.ceil((yCoord * - 1 + 3000) / 250)] .."-".. math.ceil((xCoord + 3000) / 250)
@@ -881,11 +881,11 @@ function getCrosshairPosition()
 end
 
 function string.upper2(s)
-    return s:gsub("([а-я])",function(str) return string.char(str:byte()-32) end):gsub("ё", "Ё"):upper()
+    return s:gsub("([Р°-СЏ])",function(str) return string.char(str:byte()-32) end):gsub("С‘", "РЃ"):upper()
 end
 
 function string.lower2(s)
-    return s:gsub("([А-Я])",function(str) return string.char(str:byte()+32) end):gsub("Ё", "ё"):lower()
+    return s:gsub("([Рђ-РЇ])",function(str) return string.char(str:byte()+32) end):gsub("РЃ", "С‘"):lower()
 end
 
 function apply_custom_style()
@@ -947,23 +947,23 @@ function apply_custom_style()
 end
  
 imgui.OnInitialize(function()
-	apply_custom_style() -- применим кастомный стиль
+	apply_custom_style() -- РїСЂРёРјРµРЅРёРј РєР°СЃС‚РѕРјРЅС‹Р№ СЃС‚РёР»СЊ
 	local defGlyph = imgui.GetIO().Fonts.ConfigData.Data[0].GlyphRanges
 
-	--imgui.GetIO().Fonts:Clear() -- очистим шрифты
-	local font_config = imgui.ImFontConfig() -- у каждого шрифта есть свой конфиг
+	--imgui.GetIO().Fonts:Clear() -- РѕС‡РёСЃС‚РёРј С€СЂРёС„С‚С‹
+	local font_config = imgui.ImFontConfig() -- Сѓ РєР°Р¶РґРѕРіРѕ С€СЂРёС„С‚Р° РµСЃС‚СЊ СЃРІРѕР№ РєРѕРЅС„РёРі
 	font_config.SizePixels = 14.0;
 	font_config.GlyphExtraSpacing.x = 0.05
 	
-   -- основной шрифт
-	--local def = imgui.GetIO().Fonts:AddFontFromFileTTF(getFolderPath(0x14) .. '\\arialbd.ttf', font_config.SizePixels, font_config, defGlyph) -- основной шрифт
+   -- РѕСЃРЅРѕРІРЅРѕР№ С€СЂРёС„С‚
+	--local def = imgui.GetIO().Fonts:AddFontFromFileTTF(getFolderPath(0x14) .. '\\arialbd.ttf', font_config.SizePixels, font_config, defGlyph) -- РѕСЃРЅРѕРІРЅРѕР№ С€СЂРёС„С‚
 	
 	font_config.MergeMode = true
 	font_config.PixelSnapH = true
 	font_config.FontDataOwnedByAtlas = false
-	font_config.GlyphOffset.y = 1.0 -- смещение на 1 пиксеот вниз
+	font_config.GlyphOffset.y = 1.0 -- СЃРјРµС‰РµРЅРёРµ РЅР° 1 РїРёРєСЃРµРѕС‚ РІРЅРёР·
 	local fa_glyph_ranges = imgui.new.ImWchar[3]({ faicons.min_range, faicons.max_range, 0 })
-	-- иконки
+	-- РёРєРѕРЅРєРё
 	local faicon = imgui.GetIO().Fonts:AddFontFromMemoryCompressedBase85TTF(faicons.get_font_data_base85(), font_config.SizePixels, font_config, fa_glyph_ranges)
 
 	imgui.GetIO().ConfigWindowsMoveFromTitleBarOnly = true
@@ -971,10 +971,10 @@ imgui.OnInitialize(function()
 end)
 
 --[[imgui.Cond = {
-    Always = 1, -- Всегда исполняетс
-    Once = 2, -- Один раз
-    FirstUseEver = 4, -- Единожды при вызове
-    Appearing = 8, -- При открытии окна
+    Always = 1, -- Р’СЃРµРіРґР° РёСЃРїРѕР»РЅСЏРµС‚СЃ
+    Once = 2, -- РћРґРёРЅ СЂР°Р·
+    FirstUseEver = 4, -- Р•РґРёРЅРѕР¶РґС‹ РїСЂРё РІС‹Р·РѕРІРµ
+    Appearing = 8, -- РџСЂРё РѕС‚РєСЂС‹С‚РёРё РѕРєРЅР°
 }]]
 local item_hovered = -1;
 local menuOpen = true
@@ -1133,8 +1133,8 @@ function()
 	--imgui.SetCursorPos(imgui.ImVec2(resX/2, resY/2))
 	
 	imgui.PushStyleColor(imgui.Col.WindowBg, imgui.ImVec4(0.06, 0.06, 0.06, 0.75))
-	local x, y = convertGameScreenCoordsToWindowScreenCoords(60, 290) -- Позиция X , позиция Y
-	local w, h = convertGameScreenCoordsToWindowScreenCoords(125, 45) -- Длина, Высота 
+	local x, y = convertGameScreenCoordsToWindowScreenCoords(60, 290) -- РџРѕР·РёС†РёСЏ X , РїРѕР·РёС†РёСЏ Y
+	local w, h = convertGameScreenCoordsToWindowScreenCoords(125, 45) -- Р”Р»РёРЅР°, Р’С‹СЃРѕС‚Р° 
 	
 	imgui.SetNextWindowPos(imgui.ImVec2(resX / 7, resY / 1.45),_,imgui.ImVec2(0.5, 0.5))
 	imgui.SetNextWindowSize(imgui.ImVec2(w-x, h), imgui.Cond.FirstUseEver)			
@@ -1157,11 +1157,11 @@ function()
 	
 	imgui.Text(faicons.ICON_LOCATION_ARROW) 
 	imgui.SameLine() 
-	if myZone == "Неизвестно" then mimgui_addons.Spinner("##spinner", 4, 2, spinnerColor) else imgui.Text(u8(("%s"):format(mySquare))) end
+	if myZone == "РќРµРёР·РІРµСЃС‚РЅРѕ" then mimgui_addons.Spinner("##spinner", 4, 2, spinnerColor) else imgui.Text(u8(("%s"):format(mySquare))) end
 	
 	imgui.Text(faicons.ICON_MAP_SIGNS)
 	imgui.SameLine()
-	if myZone == "Неизвестно" then mimgui_addons.Spinner("##spinner", 4, 2, spinnerColor) else imgui.Text(u8(("%s"):format(myZone))) end
+	if myZone == "РќРµРёР·РІРµСЃС‚РЅРѕ" then mimgui_addons.Spinner("##spinner", 4, 2, spinnerColor) else imgui.Text(u8(("%s"):format(myZone))) end
 	
 	imgui.Text(faicons.ICON_COMPASS) imgui.SameLine() imgui.Text(u8(("%s"):format(myCompas)))
 	
@@ -1177,31 +1177,31 @@ function()
 	imgui.SetNextWindowSize(imgui.ImVec2(740,500))
 		imgui.Begin(u8(string.upper(thisScript().name)), main_window, imgui.WindowFlags.NoMove + imgui.WindowFlags.NoResize + imgui.WindowFlags.NoScrollbar + imgui.WindowFlags.NoScrollWithMouse + imgui.WindowFlags.NoSavedSettings)
 	
-		imgui.BeginChild('left', imgui.ImVec2(155, 470), true) --Навигация по главному меню слева
+		imgui.BeginChild('left', imgui.ImVec2(155, 470), true) --РќР°РІРёРіР°С†РёСЏ РїРѕ РіР»Р°РІРЅРѕРјСѓ РјРµРЅСЋ СЃР»РµРІР°
 			if not selected then selected = 1 end 
-			if imgui.Button(u8'Полиция '..faicons.ICON_ASTERISK, selectable_size) then selected = 1 end --Полиция
+			if imgui.Button(u8'РџРѕР»РёС†РёСЏ '..faicons.ICON_ASTERISK, selectable_size) then selected = 1 end --РџРѕР»РёС†РёСЏ
 			imgui.Separator()
-			if imgui.Button(u8'Информация '..faicons.ICON_INFO_CIRCLE,selectable_size) then selected = 3 end
-		imgui.EndChild() --конец навигации
+			if imgui.Button(u8'РРЅС„РѕСЂРјР°С†РёСЏ '..faicons.ICON_INFO_CIRCLE,selectable_size) then selected = 3 end
+		imgui.EndChild() --РєРѕРЅРµС† РЅР°РІРёРіР°С†РёРё
 		
 		imgui.SameLine()
-		imgui.BeginChild('right', imgui.ImVec2(570, 470), true) --Навигация по меню справа
-			if selected == 1 then --// Полиция //
+		imgui.BeginChild('right', imgui.ImVec2(570, 470), true) --РќР°РІРёРіР°С†РёСЏ РїРѕ РјРµРЅСЋ СЃРїСЂР°РІР°
+			if selected == 1 then --// РџРѕР»РёС†РёСЏ //
 				imgui.BeginChild('up', imgui.ImVec2(560, 48), true)
 				if not selectedd then 
 					selectedd = 1 
 				end 
 				
-				if imgui.Button(u8'Розыск', btnlives_size) then selectedd = 1 end -- Розыск
+				if imgui.Button(u8'Р РѕР·С‹СЃРє', btnlives_size) then selectedd = 1 end -- Р РѕР·С‹СЃРє
 				imgui.SameLine()
-				if imgui.Button(u8'Помощь', btnlives_size) then selectedd = 2 end -- Помощь
+				if imgui.Button(u8'РџРѕРјРѕС‰СЊ', btnlives_size) then selectedd = 2 end -- РџРѕРјРѕС‰СЊ
 				imgui.SameLine()
-				if imgui.Button(u8'Биндеры', btnlives_size) then selectedd = 3 end -- Бинды
+				if imgui.Button(u8'Р‘РёРЅРґРµСЂС‹', btnlives_size) then selectedd = 3 end -- Р‘РёРЅРґС‹
 				imgui.SameLine()
-				if imgui.Button(u8'Настройки', btnlives_size) then selectedd = 4 end -- Настройки
+				if imgui.Button(u8'РќР°СЃС‚СЂРѕР№РєРё', btnlives_size) then selectedd = 4 end -- РќР°СЃС‚СЂРѕР№РєРё
 				imgui.EndChild()
 				
-				imgui.BeginChild('down', imgui.ImVec2(560, 410), true) --действия эфиров
+				imgui.BeginChild('down', imgui.ImVec2(560, 410), true) --РґРµР№СЃС‚РІРёСЏ СЌС„РёСЂРѕРІ
 					if selectedd == 1 then
 						for i = 0, sampGetMaxPlayerId(false) do
 							list_ids[i] = ("[%i]  %s"):format(i, sampIsPlayerConnected(i) == true and sampGetPlayerNickname(i) or "")
@@ -1219,19 +1219,19 @@ function()
 
 						imgui.SameLine()
 
-						imgui.InputTextWithHint("##InputText1", u8"Поиск статьи", searchBuf, ffi.sizeof(searchBuf))
+						imgui.InputTextWithHint("##InputText1", u8"РџРѕРёСЃРє СЃС‚Р°С‚СЊРё", searchBuf, ffi.sizeof(searchBuf))
 						imgui.SameLine()
 						
-						imgui.Text(u8"Статей: "..tostring(suspectElementCount))
+						imgui.Text(u8"РЎС‚Р°С‚РµР№: "..tostring(suspectElementCount))
 					
 						imgui.PopItemWidth()
 						imgui.Separator()
 
 						imgui.BeginChild('table suspect', imgui.ImVec2(550, 370), false)
 							imgui.Columns(3, _, true)
-							imgui.SetColumnWidth(-1, 52); imgui.Text(u8"Кодекс"); imgui.NextColumn()
-							imgui.SetColumnWidth(-1, 420); imgui.Text(u8"Статья"); imgui.NextColumn()
-							imgui.SetColumnWidth(-1, 52); imgui.Text(u8"Звезды"); imgui.NextColumn()
+							imgui.SetColumnWidth(-1, 52); imgui.Text(u8"РљРѕРґРµРєСЃ"); imgui.NextColumn()
+							imgui.SetColumnWidth(-1, 420); imgui.Text(u8"РЎС‚Р°С‚СЊСЏ"); imgui.NextColumn()
+							imgui.SetColumnWidth(-1, 52); imgui.Text(u8"Р—РІРµР·РґС‹"); imgui.NextColumn()
 							imgui.Separator()
 
 							suspectElementCount = 0
@@ -1270,13 +1270,13 @@ function()
 							end
 							imgui.Separator()
 						end		
-						if imgui.TreeNodeStr(u8"УКАЗАТЕЛИ") then
+						if imgui.TreeNodeStr(u8"РЈРљРђР—РђРўР•Р›Р") then
 						
 							imgui.Columns(3, "mycolumns")
 							imgui.Separator()
-							imgui.Text(u8"Описание") imgui.NextColumn()
-							imgui.Text(u8"Значение") imgui.NextColumn()
-							imgui.Text(u8"Указатель") imgui.NextColumn()
+							imgui.Text(u8"РћРїРёСЃР°РЅРёРµ") imgui.NextColumn()
+							imgui.Text(u8"Р—РЅР°С‡РµРЅРёРµ") imgui.NextColumn()
+							imgui.Text(u8"РЈРєР°Р·Р°С‚РµР»СЊ") imgui.NextColumn()
 							imgui.Separator()
 		
 							for i = 1, #args do
@@ -1289,14 +1289,14 @@ function()
 						end
 						imgui.Separator();
 
-						--[[if imgui.Button(u8'Начало',btnlives_size) then
+						--[[if imgui.Button(u8'РќР°С‡Р°Р»Рѕ',btnlives_size) then
 						end
 						 imgui.SameLine()
-						if imgui.Button(u8'След.страна',btnlives_size) then
-							sampSetChatInputText('/news [Столицы] Следующая страна: ')
+						if imgui.Button(u8'РЎР»РµРґ.СЃС‚СЂР°РЅР°',btnlives_size) then
+							sampSetChatInputText('/news [РЎС‚РѕР»РёС†С‹] РЎР»РµРґСѓСЋС‰Р°СЏ СЃС‚СЂР°РЅР°: ')
 							sampSetChatInputEnabled(true)
 						end
-						if imgui.Button(u8'Конец',btnlives_size) then
+						if imgui.Button(u8'РљРѕРЅРµС†',btnlives_size) then
 					
 						end]]
 					end
@@ -1306,12 +1306,12 @@ function()
 						if mimgui_addons.ToggleButton("Anti-AFK", isWorkInBackground) then
 							workInBackgroundSet()
 						end
-						imgui.Text(u8(("В сети:  %s"):format(FormatTime(os.clock()))))
+						imgui.Text(u8(("Р’ СЃРµС‚Рё:  %s"):format(FormatTime(os.clock()))))
 
 					end
 				end	
 			if selected == 2 then
-				--imgui.Text(u8"Тут инфа")
+				--imgui.Text(u8"РўСѓС‚ РёРЅС„Р°")
 			end
 		imgui.EndChild()
 	imgui.End()  
@@ -1381,7 +1381,7 @@ function GetPlayerFacingDirection(ped, facing_angle)
 end
 
 
-function tags(text) -- функция с тэгами скрипта	
+function tags(text) -- С„СѓРЅРєС†РёСЏ СЃ С‚СЌРіР°РјРё СЃРєСЂРёРїС‚Р°	
 	for i = 1, #args do
 		text = text:gsub(args[i][1], tostring(args[i][3]))
 	end
@@ -1772,7 +1772,7 @@ function calculateZone(x, y, z)
             return v[1]
         end
     end
-    return "Неизвестно"
+    return "РќРµРёР·РІРµСЃС‚РЅРѕ"
 end
 
 
@@ -1855,21 +1855,21 @@ function autoupdate(json_url, prefix, url)
               lua_thread.create(function(prefix)
                 local dlstatus = require('moonloader').download_status
                 local color = -1
-                sampAddChatMessage((prefix..'Обнаружено обновление. Пытаюсь обновиться c '..thisScript().version..' на '..updateversion), color)
+                sampAddChatMessage((prefix..'РћР±РЅР°СЂСѓР¶РµРЅРѕ РѕР±РЅРѕРІР»РµРЅРёРµ. РџС‹С‚Р°СЋСЃСЊ РѕР±РЅРѕРІРёС‚СЊСЃСЏ c '..thisScript().version..' РЅР° '..updateversion), color)
                 wait(250)
                 downloadUrlToFile(updatelink, thisScript().path,
                   function(id3, status1, p13, p23)
                     if status1 == dlstatus.STATUS_DOWNLOADINGDATA then
-                      print(string.format('Загружено %d из %d.', p13, p23))
+                      print(string.format('Р—Р°РіСЂСѓР¶РµРЅРѕ %d РёР· %d.', p13, p23))
                     elseif status1 == dlstatus.STATUS_ENDDOWNLOADDATA then
-                      print('Загрузка обновления завершена.')
-                      sampAddChatMessage((prefix..'Обновление завершено!'), color)
+                      print('Р—Р°РіСЂСѓР·РєР° РѕР±РЅРѕРІР»РµРЅРёСЏ Р·Р°РІРµСЂС€РµРЅР°.')
+                      sampAddChatMessage((prefix..'РћР±РЅРѕРІР»РµРЅРёРµ Р·Р°РІРµСЂС€РµРЅРѕ!'), color)
                       goupdatestatus = true
                       lua_thread.create(function() wait(500) thisScript():reload() end)
                     end
                     if status1 == dlstatus.STATUSEX_ENDDOWNLOAD then
                       if goupdatestatus == nil then
-                        sampAddChatMessage((prefix..'Обновление прошло неудачно. Запускаю устаревшую версию..'), color)
+                        sampAddChatMessage((prefix..'РћР±РЅРѕРІР»РµРЅРёРµ РїСЂРѕС€Р»Рѕ РЅРµСѓРґР°С‡РЅРѕ. Р—Р°РїСѓСЃРєР°СЋ СѓСЃС‚Р°СЂРµРІС€СѓСЋ РІРµСЂСЃРёСЋ..'), color)
                         update = false
                       end
                     end
@@ -1879,11 +1879,11 @@ function autoupdate(json_url, prefix, url)
               )
             else
               update = false
-              print('v'..thisScript().version..': Обновление не требуется.')
+              print('v'..thisScript().version..': РћР±РЅРѕРІР»РµРЅРёРµ РЅРµ С‚СЂРµР±СѓРµС‚СЃСЏ.')
             end
           end
         else
-          print('v'..thisScript().version..': Не могу проверить обновление. Смиритесь или проверьте самостоятельно на '..url)
+          print('v'..thisScript().version..': РќРµ РјРѕРіСѓ РїСЂРѕРІРµСЂРёС‚СЊ РѕР±РЅРѕРІР»РµРЅРёРµ. РЎРјРёСЂРёС‚РµСЃСЊ РёР»Рё РїСЂРѕРІРµСЂСЊС‚Рµ СЃР°РјРѕСЃС‚РѕСЏС‚РµР»СЊРЅРѕ РЅР° '..url)
           update = false
         end
       end
